@@ -1,0 +1,18 @@
+# Configuración real con credenciales (se versiona solo config.example.php)
+config/config.php
+.env
+
+# Archivos subidos por usuarios (se conserva la carpeta)
+storage/uploads/*
+!storage/uploads/.gitkeep
+
+# Registros de errores (se conserva la carpeta)
+storage/logs/*
+!storage/logs/.gitkeep
+*.log
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
