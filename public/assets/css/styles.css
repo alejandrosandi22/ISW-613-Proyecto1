@@ -90,3 +90,22 @@ td {
 .alert-success {
     border-color: #070;
 }
+
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.pagination {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.field-error {
+    color: #b00;
+    font-size: 0.9em;
+}

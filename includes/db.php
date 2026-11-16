@@ -33,3 +33,33 @@ function db(): PDO
 
     return $pdo;
 }
+
+/**
+ * Prepara y ejecuta una consulta enlazando cada parámetro con su tipo.
+ * Necesario para LIMIT/OFFSET, que deben enviarse como enteros.
+ */
+function db_query(string $sql, array $params = []): PDOStatement
+{
+    $st = db()->prepare($sql);
+
+    foreach ($params as $name => $value) {
+        $type = match (true) {
+            is_int($value)  => PDO::PARAM_INT,
+            $value === null => PDO::PARAM_NULL,
+            default         => PDO::PARAM_STR,
+        };
+        $st->bindValue($name, $value, $type);
+    }
+
+    $st->execute();
+
+    return $st;
+}
+
+/**
+ * Indica si la excepción corresponde a una clave única duplicada (error 1062).
+ */
+function is_duplicate_key(PDOException $e): bool
+{
+    return (int) ($e->errorInfo[1] ?? 0) === 1062;
+}

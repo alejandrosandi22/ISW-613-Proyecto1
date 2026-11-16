@@ -17,7 +17,11 @@ INSERT INTO categories (id, name, description, max_loan_days) VALUES
     (1, 'Computadoras portátiles', 'Laptops para uso en laboratorio y proyectos', 7),
     (2, 'Proyectores', 'Proyectores multimedia', 3),
     (3, 'Microcontroladores', 'Placas de desarrollo y kits de electrónica', 14),
-    (4, 'Instrumentos de medición', 'Multímetros, osciloscopios y fuentes', 5);
+    (4, 'Instrumentos de medición', 'Multímetros, osciloscopios y fuentes', 5),
+    (5, 'Cámaras', 'Cámaras fotográficas y de video', 3),
+    (6, 'Audio', 'Micrófonos, parlantes y grabadoras', 3),
+    (7, 'Redes', 'Routers, switches y cables de red', 7),
+    (8, 'Impresoras 3D', NULL, 2);
 
 INSERT INTO equipment (id, category_id, code, name, description, status) VALUES
     (1, 1, 'LAP-001', 'Laptop Dell Latitude 5420', 'Intel i5, 16 GB RAM', 'available'),

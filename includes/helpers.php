@@ -81,6 +81,26 @@ function post_string(string $key, bool $trim = true): string
 }
 
 /**
+ * Obtiene un parámetro de texto de $_GET. Si no existe o no es texto, devuelve ''.
+ */
+function query_string(string $key): string
+{
+    $value = $_GET[$key] ?? '';
+
+    return is_string($value) ? trim($value) : '';
+}
+
+/**
+ * Convierte un parámetro en un ID entero positivo, o null si no es válido.
+ */
+function to_id(string $value): ?int
+{
+    $id = filter_var($value, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+
+    return $id === false ? null : $id;
+}
+
+/**
  * Las acciones solo aceptan POST.
  */
 function require_post(): void
@@ -121,6 +141,31 @@ function pull_old_input(): array
     unset($_SESSION['old_input']);
 
     return $data;
+}
+
+/**
+ * Errores de validación por campo, para mostrarlos tras la redirección.
+ */
+function set_form_errors(array $errors): void
+{
+    $_SESSION['form_errors'] = $errors;
+}
+
+function pull_form_errors(): array
+{
+    $errors = $_SESSION['form_errors'] ?? [];
+    unset($_SESSION['form_errors']);
+
+    return $errors;
+}
+
+function field_error(array $errors, string $field): string
+{
+    if (!isset($errors[$field])) {
+        return '';
+    }
+
+    return '<span class="field-error">' . e($errors[$field]) . '</span>';
 }
 
 function send_security_headers(): void
