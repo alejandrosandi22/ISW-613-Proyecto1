@@ -1,0 +1,8 @@
+# El proyecto está dentro de htdocs (http://127.0.0.1/sigel).
+# Toda petición se redirige internamente a public/, el único directorio expuesto.
+# Así config/, includes/, sql/, storage/, docker/, .env, .git, etc. nunca se sirven:
+# por ejemplo /sigel/config/config.php se busca en public/config/config.php → 404.
+Options -Indexes
+
+RewriteEngine On
+RewriteRule ^(?!public/)(.*)$ public/$1 [L]

@@ -1,0 +1,5 @@
+# Único directorio expuesto por Apache.
+Require all granted
+
+# Sin listado de directorios.
+Options -Indexes
