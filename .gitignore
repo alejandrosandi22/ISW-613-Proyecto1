@@ -16,3 +16,6 @@ storage/logs/*
 Thumbs.db
 .vscode/
 .idea/
+
+# Configuración local de herramientas
+.claude/

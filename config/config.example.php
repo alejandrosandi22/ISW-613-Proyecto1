@@ -15,7 +15,8 @@ return [
         'name'     => 'SIGEL',
         // 'development' o 'production'. Nunca se muestran errores al usuario.
         'env'      => 'development',
-        'url'      => 'http://sigel.local',
+        // Ruta base de la aplicación: '/sigel' en http://127.0.0.1/sigel; '' con el virtual host sigel.local.
+        'base_path' => '/sigel',
         'timezone' => 'America/Costa_Rica',
     ],
 

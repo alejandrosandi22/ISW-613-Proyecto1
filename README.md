@@ -12,7 +12,7 @@ Sistema de Gestión de Préstamo de Equipos de Laboratorio. Proyecto 1 de ISW-61
 1. Clonar el repositorio dentro de `C:\xampp\htdocs`:
 
 ```
-git clone https://github.com/alejandrosandi22/ISW-613-Proyecto1-SIGEL.git sigel
+git clone https://github.com/alejandrosandi22/ISW-613-Proyecto1.git sigel
 cd sigel
 ```
 
@@ -68,8 +68,8 @@ Agregar `127.0.0.1 sigel.local` en `C:\Windows\System32\drivers\etc\hosts`, rein
 
 | Rol | Correo | Contraseña |
 |---|---|---|
-| Administrador | — | — |
-| Operador | — | — |
+| Administrador | admin@sigel.local | Admin123! |
+| Operador | operador@sigel.local | Operador123! |
 
 ## Estructura
 

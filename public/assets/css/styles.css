@@ -1,0 +1,92 @@
+/* Estilos mínimos: solo estructura. */
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+}
+
+.topbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #999;
+}
+
+.topbar nav {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.session-info {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+footer {
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid #999;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-width: 400px;
+}
+
+.form button {
+    margin-top: 0.75rem;
+}
+
+input,
+select,
+textarea,
+button {
+    font: inherit;
+    padding: 0.35rem 0.5rem;
+}
+
+button {
+    cursor: pointer;
+}
+
+form.inline {
+    display: inline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #999;
+    padding: 0.35rem 0.5rem;
+    text-align: left;
+}
+
+.alert {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #999;
+}
+
+.alert-error {
+    border-color: #b00;
+}
+
+.alert-success {
+    border-color: #070;
+}
