@@ -109,3 +109,21 @@ td {
     color: #b00;
     font-size: 0.9em;
 }
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.gallery figure {
+    margin: 0;
+    width: 180px;
+}
+
+.gallery img {
+    width: 180px;
+    height: 135px;
+    object-fit: cover;
+    border: 1px solid #999;
+}
