@@ -127,3 +127,9 @@ td {
     object-fit: cover;
     border: 1px solid #999;
 }
+
+.recent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}

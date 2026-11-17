@@ -21,13 +21,7 @@ function resolve_per_page(string $module): int
             return $default;
         }
 
-        setcookie($cookieName, (string) $value, [
-            'expires'  => time() + 60 * 60 * 24 * 365,
-            'path'     => cookie_path(),
-            'secure'   => is_https(),
-            'httponly' => true,
-            'samesite' => 'Lax',
-        ]);
+        set_app_cookie($cookieName, (string) $value, time() + 60 * 60 * 24 * 365);
 
         return $value;
     }

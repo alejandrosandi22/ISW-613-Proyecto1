@@ -29,4 +29,8 @@ if (!attempt_login($email, $password)) {
     redirect('pages/login.php');
 }
 
+if (post_string('remember') === '1') {
+    issue_remember_token((int) $_SESSION['user_id']);
+}
+
 redirect('pages/dashboard.php');

@@ -18,6 +18,15 @@ $loan = pull_old_input() + [
 ];
 $selectedIds = array_map('intval', (array) $loan['equipment_ids']);
 $loanableEquipment = list_loanable_equipment();
+
+// Los equipos consultados recientemente que se pueden prestar se muestran primero.
+$recentIds = array_column(
+    array_filter(list_recent_equipment(), static fn (array $item) => $item['status'] === 'available'),
+    'id'
+);
+$recentGroup = array_values(array_filter($loanableEquipment, static fn (array $item) => in_array($item['id'], $recentIds, true)));
+usort($recentGroup, static fn (array $a, array $b) => array_search($a['id'], $recentIds, true) <=> array_search($b['id'], $recentIds, true));
+$otherGroup = array_values(array_filter($loanableEquipment, static fn (array $item) => !in_array($item['id'], $recentIds, true)));
 $pageTitle = 'Nuevo préstamo';
 
 require ROOT_PATH . '/includes/templates/header.php';
@@ -51,13 +60,19 @@ require ROOT_PATH . '/includes/templates/header.php';
         <?php if ($loanableEquipment === []): ?>
             <p>No hay equipos disponibles.</p>
         <?php endif; ?>
-        <?php foreach ($loanableEquipment as $item): ?>
-            <label>
-                <input type="checkbox" name="equipment_ids[]" value="<?= e($item['id']) ?>"
-                    <?= in_array($item['id'], $selectedIds, true) ? 'checked' : '' ?>>
-                <?= e($item['code']) ?> · <?= e($item['name']) ?>
-                (<?= e($item['category_name']) ?>, máx. <?= e($item['max_loan_days']) ?> días)
-            </label>
+        <?php foreach (['Consultados recientemente' => $recentGroup, 'Todos los disponibles' => $otherGroup] as $groupTitle => $group): ?>
+            <?php if ($group === []) {
+                continue;
+            } ?>
+            <p><strong><?= e($groupTitle) ?></strong></p>
+            <?php foreach ($group as $item): ?>
+                <label>
+                    <input type="checkbox" name="equipment_ids[]" value="<?= e($item['id']) ?>"
+                        <?= in_array($item['id'], $selectedIds, true) ? 'checked' : '' ?>>
+                    <?= e($item['code']) ?> · <?= e($item['name']) ?>
+                    (<?= e($item['category_name']) ?>, máx. <?= e($item['max_loan_days']) ?> días)
+                </label>
+            <?php endforeach; ?>
         <?php endforeach; ?>
     </fieldset>
 

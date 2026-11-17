@@ -19,6 +19,8 @@ require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/audit.php';
 require_once __DIR__ . '/csrf.php';
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/remember.php';
+require_once __DIR__ . '/recent_equipment.php';
 require_once __DIR__ . '/validation.php';
 require_once __DIR__ . '/pagination.php';
 require_once __DIR__ . '/statuses.php';

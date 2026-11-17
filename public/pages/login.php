@@ -26,6 +26,11 @@ require ROOT_PATH . '/includes/templates/header.php';
     <input type="password" id="password" name="password" maxlength="255" required
            autocomplete="current-password">
 
+    <label>
+        <input type="checkbox" name="remember" value="1">
+        Recordarme en este equipo (<?= e(config('security.remember_me_days', 14)) ?> días)
+    </label>
+
     <button type="submit">Ingresar</button>
 </form>
 <?php require ROOT_PATH . '/includes/templates/footer.php'; ?>

@@ -33,7 +33,10 @@ function start_session(): void
     if (isset($_SESSION['user_id'], $lastActivity) && time() - (int) $lastActivity > $timeout) {
         destroy_session();
         restart_session();
-        flash('error', 'Su sesión expiró por inactividad. Inicie sesión de nuevo.');
+        // Con «Recordarme» la sesión se renueva sola en current_user(); no se muestra aviso.
+        if (!isset($_COOKIE[(string) config('cookies.remember', 'sigel_remember')])) {
+            flash('error', 'Su sesión expiró por inactividad. Inicie sesión de nuevo.');
+        }
     }
 
     $_SESSION['last_activity'] = time();
@@ -79,7 +82,8 @@ function current_user(): ?array
         return $user;
     }
 
-    if (!isset($_SESSION['user_id'])) {
+    // Sin sesión activa se intenta el inicio de sesión persistente («Recordarme»).
+    if (!isset($_SESSION['user_id']) && !login_from_remember_cookie()) {
         return $user = null;
     }
 
@@ -138,18 +142,27 @@ function attempt_login(string $email, string $password): bool
             ->execute([':hash' => password_hash($password, PASSWORD_DEFAULT), ':id' => $userId]);
     }
 
-    db()->prepare('UPDATE users SET failed_attempts = 0, locked_until = NULL, last_login_at = NOW() WHERE id = :id')
+    db()->prepare('UPDATE users SET failed_attempts = 0, locked_until = NULL WHERE id = :id')
         ->execute([':id' => $userId]);
 
+    start_authenticated_session($userId);
+    audit_log('login', 'users', $userId);
+
+    return true;
+}
+
+/**
+ * Inicia la sesión de un usuario ya autenticado (por contraseña o por «Recordarme»).
+ */
+function start_authenticated_session(int $userId): void
+{
     // Nuevo identificador de sesión al autenticar (evita la fijación de sesión).
     session_regenerate_id(true);
     $_SESSION['user_id'] = $userId;
     $_SESSION['last_activity'] = time();
     csrf_regenerate();
 
-    audit_log('login', 'users', $userId);
-
-    return true;
+    db()->prepare('UPDATE users SET last_login_at = NOW() WHERE id = :id')->execute([':id' => $userId]);
 }
 
 /**
@@ -178,6 +191,8 @@ function logout_user(): void
         audit_log('logout', 'users', (int) $_SESSION['user_id']);
     }
 
+    // Revoca el token «Recordarme» en la base y elimina la cookie.
+    forget_remember_token();
     destroy_session();
 }
 

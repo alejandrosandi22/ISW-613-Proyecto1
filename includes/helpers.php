@@ -50,6 +50,31 @@ function cookie_path(): string
     return $base === '' ? '/' : $base;
 }
 
+/**
+ * Crea o reemplaza una cookie de la aplicación con atributos seguros:
+ * HttpOnly (JavaScript no la lee), SameSite=Lax y Secure cuando hay HTTPS.
+ */
+function set_app_cookie(string $name, string $value, int $expires): void
+{
+    setcookie($name, $value, [
+        'expires'  => $expires,
+        'path'     => cookie_path(),
+        'secure'   => is_https(),
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+    $_COOKIE[$name] = $value;
+}
+
+/**
+ * Elimina una cookie de la aplicación (fecha de expiración en el pasado).
+ */
+function clear_app_cookie(string $name): void
+{
+    set_app_cookie($name, '', time() - 3600);
+    unset($_COOKIE[$name]);
+}
+
 function redirect(string $path): never
 {
     header('Location: ' . url($path));

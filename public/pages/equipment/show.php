@@ -16,6 +16,8 @@ if ($equipment === null) {
     render_error_page(404, 'El equipo no existe o fue eliminado.');
 }
 
+remember_recent_equipment($equipmentId);
+
 $activeLoans = list_active_loans_for_equipment($equipmentId);
 $images = list_equipment_images($equipmentId);
 $allowedExtensions = array_keys(config('uploads.allowed_types', []));

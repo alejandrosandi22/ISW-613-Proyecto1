@@ -14,6 +14,7 @@ $perPage = resolve_per_page('equipment');
 $pagination = paginate(count_equipment($search, $categoryId), $perPage);
 $equipmentList = list_equipment($search, $categoryId, $perPage, $pagination['offset']);
 $categoryOptions = list_category_options();
+$recentEquipment = list_recent_equipment();
 
 $listPath = 'pages/equipment/index.php';
 $listParams = ['q' => $search, 'category' => $categoryId, 'per_page' => $perPage];
@@ -47,6 +48,17 @@ require ROOT_PATH . '/includes/templates/header.php';
         <a href="<?= e(url($listPath)) ?>">Limpiar</a>
     <?php endif; ?>
 </form>
+
+<?php if ($recentEquipment !== []): ?>
+    <p class="recent">
+        Consultados recientemente:
+        <?php foreach ($recentEquipment as $recent): ?>
+            <a href="<?= e(url('pages/equipment/show.php?id=' . $recent['id'])) ?>">
+                <?= e($recent['code']) ?> · <?= e($recent['name']) ?>
+            </a>
+        <?php endforeach; ?>
+    </p>
+<?php endif; ?>
 
 <?php if ($equipmentList === []): ?>
     <p>No se encontraron equipos.</p>
