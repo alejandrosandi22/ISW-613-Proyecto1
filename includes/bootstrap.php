@@ -21,6 +21,7 @@ require_once __DIR__ . '/csrf.php';
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/validation.php';
 require_once __DIR__ . '/pagination.php';
+require_once __DIR__ . '/statuses.php';
 
 date_default_timezone_set((string) config('app.timezone', 'UTC'));
 

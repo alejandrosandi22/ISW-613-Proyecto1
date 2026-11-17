@@ -22,6 +22,7 @@ $flashes = pull_flashes();
             <?php if ($currentUser['role'] === 'admin'): ?>
                 <a href="<?= e(url('pages/categories/index.php')) ?>">Categorías</a>
             <?php endif; ?>
+            <a href="<?= e(url('pages/equipment/index.php')) ?>">Equipos</a>
         </nav>
         <div class="session-info">
             <span><?= e($currentUser['full_name']) ?> (<?= e($currentUser['role_label']) ?>)</span>
