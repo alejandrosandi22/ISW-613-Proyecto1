@@ -20,6 +20,7 @@ $flashes = pull_flashes();
         <nav>
             <a href="<?= e(url('pages/dashboard.php')) ?>">Inicio</a>
             <?php if ($currentUser['role'] === 'admin'): ?>
+                <a href="<?= e(url('pages/users/index.php')) ?>">Usuarios</a>
                 <a href="<?= e(url('pages/categories/index.php')) ?>">Categorías</a>
             <?php endif; ?>
             <a href="<?= e(url('pages/equipment/index.php')) ?>">Equipos</a>

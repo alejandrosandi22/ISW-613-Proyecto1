@@ -1,7 +1,7 @@
 -- =====================================================================
 -- SIGEL - Datos de prueba
 -- Ejecutar después de schema.sql.
--- Contraseñas: admin@sigel.local / Admin123!   operador@sigel.local / Operador123!
+-- Contraseñas: admin@sigel.local / Admin123!; el resto de usuarios / Operador123!
 -- =====================================================================
 
 SET NAMES utf8mb4;
@@ -11,7 +11,16 @@ INSERT INTO users (id, role_id, full_name, email, password_hash) VALUES
     (1, 1, 'Ana Administradora', 'admin@sigel.local',
         '$2y$10$wbk.OEF2NGwu5HnAfdiqU.QvKliYBMiP8pbxU4dXdt/gt8kYTn36W'),
     (2, 2, 'Óscar Operador', 'operador@sigel.local',
-        '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS');
+        '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS'),
+    (3, 2, 'Pedro Solano', 'psolano@sigel.local', '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS'),
+    (4, 2, 'Valeria Núñez', 'vnunez@sigel.local', '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS'),
+    (5, 2, 'Diego Herrera', 'dherrera@sigel.local', '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS'),
+    (6, 1, 'Gabriela Rojas', 'grojas@sigel.local', '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS'),
+    (7, 2, 'Andrés Quesada', 'aquesada@sigel.local', '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS'),
+    (8, 2, 'Marta Villalobos', 'mvillalobos@sigel.local', '$2y$10$94WuFcoI1ltTM/eULz4Wiu1OuFhiPKOyzTj85GR3CRJxtZ/ZOPyWS');
+
+-- Usuario inactivo (no puede iniciar sesión).
+UPDATE users SET is_active = 0 WHERE id = 8;
 
 INSERT INTO categories (id, name, description, max_loan_days) VALUES
     (1, 'Computadoras portátiles', 'Laptops para uso en laboratorio y proyectos', 7),
